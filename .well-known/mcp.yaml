@@ -1,0 +1,24 @@
+name: Weather Server
+description: Get weather info by city name
+methods:
+  - name: get_weather
+    description: Returns weather info by city
+    input_schema:
+      type: object
+      properties:
+        city:
+          type: string
+          description: Name of the city
+      required: [city]
+    output_schema:
+      type: object
+      properties:
+        weather:
+          type: string
+        temperature:
+          type: string
+    call:
+      url: https://41b2-113-161-85-13.ngrok-free.app/weather
+      method: GET
+      query_mapping:
+        city: city
