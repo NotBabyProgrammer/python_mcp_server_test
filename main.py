@@ -1,15 +1,16 @@
-from fastapi import FastAPI, Query
-from fastapi.responses import JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
-app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
+class WeatherRequest(BaseModel):
+    city: str
 
-@app.get("/weather")
-def get_weather(city: str = Query(..., description="City to get weather for")):
-    if city.lower() == "hue":
-        return {"weather": "Cloudy", "temperature": "25°C"}
-    elif city.lower() == "da nang":
+@app.post("/weather")
+def get_weather(data: WeatherRequest):
+    city = data.city.lower()
+    if city == "hue":
+        return {"weather": "Cloudy", "temperature": "28°C"}
+    elif city == "da nang":
         return {"weather": "Sunny", "temperature": "30°C"}
     return {"weather": "Unknown", "temperature": "?"}
