@@ -9,7 +9,8 @@ methods:
         city:
           type: string
           description: Name of the city
-      required: [city]
+      required:
+        - city
     output_schema:
       type: object
       properties:
